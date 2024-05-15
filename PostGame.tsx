@@ -15,15 +15,11 @@ EventBus.on("score", (data: number) => {
 
 let isCalled = true;
 
-
-
-interface FrontPageProps {
+interface Props {
     setScreen: React.Dispatch<React.SetStateAction<Screen>>;
 }
 
-
-
-const PostGame: React.FC<FrontPageProps> = ({ setScreen }) => {
+const PostGame: React.FC<Props> = ({ setScreen }) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [weeklyHighscores, setWeeklyHighscores] = useState<UserHighscoreNumber[]>([]);
     const userInfo = useContext(UserContext);
@@ -31,7 +27,7 @@ const PostGame: React.FC<FrontPageProps> = ({ setScreen }) => {
     
 
     useEffect(() => {
-        console.log("isCalled state: " + isCalled)
+        //console.log("isCalled state: " + isCalled)
         if(isCalled){
             isCalled = false;
             checkUserInfo();           
@@ -41,15 +37,15 @@ const PostGame: React.FC<FrontPageProps> = ({ setScreen }) => {
 
     const checkUserInfo = async () => {
         if (JSON.parse(localStorage.getItem("userinfo")!) != null) {
-            console.log("Local Storage exists: " + JSON.parse(localStorage.getItem("userinfo")!))
+            //console.log("Local Storage exists: " + JSON.parse(localStorage.getItem("userinfo")!))
 
             const { data, error } = await dbUtility.CheckUserData(
                 JSON.parse(localStorage.getItem("userinfo")!),
                 "sdsusers"
             );
-            console.log("Does user exist in DB: " + data);
+            //console.log("Does user exist in DB: " + data);
             if (data) {
-                console.log("Local Storage Matches Database entry:" + data)
+                //console.log("Local Storage Matches Database entry:" + data)
                 //console.log(isSignedIn);
                 userInfo.userInfo = JSON.parse(localStorage.getItem("userinfo")!);
                 dbUtility.UpdateScore(
@@ -59,7 +55,7 @@ const PostGame: React.FC<FrontPageProps> = ({ setScreen }) => {
                 handleSignUp();
                 userInfo.userExist = true;
             } else {
-                console.log("Removed " + JSON.parse(localStorage.getItem("userinfo")!) + " from localstorage");
+                //console.log("Removed " + JSON.parse(localStorage.getItem("userinfo")!) + " from localstorage");
                 localStorage.removeItem("userinfo");
                 userInfo.userExist = false;
                 
@@ -87,7 +83,7 @@ const PostGame: React.FC<FrontPageProps> = ({ setScreen }) => {
                     <HighscoreList
                         highscores={weeklyHighscores}
                         loaduserscore={true}
-                    ></HighscoreList>
+                    />
 
                     <div id="buttonctn">
                         <input
@@ -100,10 +96,7 @@ const PostGame: React.FC<FrontPageProps> = ({ setScreen }) => {
                     </>
                 ) : (
                     <>
-                    <InputForm
-                        onSignUp={handleSignUp}
-                        score={parseInt(userInfo.score)}
-                    />
+                    <InputForm onSignUp={handleSignUp} score={parseInt(userInfo.score)} />
                     </>
 
                 )}
