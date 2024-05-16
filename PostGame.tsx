@@ -5,7 +5,7 @@ import InputForm from "./Components/InputForm"; //Input form component
 import HighscoreList from "./Components/HighscoreList";
 import { UserContext } from "./../UserContext"; // Local stored user information
 import { UserHighscoreNumber } from "./types";
-import { Screen } from "../App";
+import { Screen } from "../scenes";
 
 var score = "";
 // Subscribe to score updates
