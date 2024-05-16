@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { EventBus } from "../game/EventBus";
+import { EventBus } from "../Game/EventBus";
 import dbUtility from "./Database/dbUtility";
 import InputForm from "./Components/InputForm"; //Input form component
 import HighscoreList from "./Components/HighscoreList";
